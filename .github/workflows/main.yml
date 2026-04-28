@@ -9,25 +9,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Skip Install
+        run: echo "No dependencies"
 
-    - name: Run Tests
-      run: echo "No tests defined"
-
-    - name: Build Docker Image
-      run: docker build -t <dockerhub-username>/ci-cd-app .
-
-    - name: Login to DockerHub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-    - name: Push Docker Image
-      run: docker push <dockerhub-username>/ci-cd-app:latest
+      - name: Run App
+        run: node app.js
